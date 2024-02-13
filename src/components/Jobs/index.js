@@ -189,10 +189,20 @@ class Jobs extends Component {
   }
 
   changeEmployeeList = type => {
-    this.setState(
-      prev => ({employeeType: [...prev.employeeType, type]}),
-      this.getJobs,
-    )
+    const {employeeType} = this.state
+    if (employeeType.includes(type)) {
+      this.setState(
+        prev => ({
+          employeeType: prev.employeeType.filter(item => item !== type),
+        }),
+        this.getJobs,
+      )
+    } else {
+      this.setState(
+        prev => ({employeeType: [...prev.employeeType, type]}),
+        this.getJobs,
+      )
+    }
   }
 
   render() {
